@@ -16,6 +16,11 @@ public class Home {
     private String country;
     private String address;
     private String type;
+    @ManyToOne
+    @JoinColumn(name="student_id", nullable=false,insertable = false,updatable = false)
+    private Student student;
+
+
 
 
 

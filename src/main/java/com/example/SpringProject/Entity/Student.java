@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Set;
 
 @Entity
 @Table
@@ -29,12 +30,13 @@ public class Student {
     }
 
 
-    @OneToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "id", referencedColumnName = "Student_id")
-    private Home home;
-    public Home getHome(){
-        return home;
+    @OneToMany(mappedBy = "student", fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL)
+    private Set<Home> homes;
+    public Set<Home> getHomes() {
+        return homes;
     }
+
     public Student (){}
 
     public Student(Long id,
