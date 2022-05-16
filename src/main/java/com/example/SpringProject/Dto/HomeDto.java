@@ -14,7 +14,8 @@ public class HomeDto {
     @NotNull(message = "type can't be empty")
     private String type;
 
-    public HomeDto(Long student_id, String name, String country, String address, String email, String type) {
+    public HomeDto(Long id,Long student_id, String name, String country, String address, String email, String type) {
+        this.id =  id;
         this.student_id = student_id;
         this.name = name;
         this.country = country;

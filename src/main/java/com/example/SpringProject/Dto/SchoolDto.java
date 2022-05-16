@@ -19,9 +19,10 @@ public class SchoolDto {
     public SchoolDto(){
 
     }
-    public SchoolDto(Long id, String name, String country, String address, String email) {
+    public SchoolDto(Long id,Long student_id, String name, String country, String address, String email) {
 
         this.id = id;
+        this.student_id = student_id;
         this.name = name;
         this.country = country;
         this.address = address;
@@ -77,4 +78,11 @@ public class SchoolDto {
     }
 
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

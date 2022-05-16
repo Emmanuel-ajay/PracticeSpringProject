@@ -89,6 +89,14 @@ public class School {
     public void setStudent_id(Long student_id) {
         this.student_id = student_id;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
 
 
