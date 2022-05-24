@@ -1,5 +1,7 @@
 package com.example.SpringProject.Dto;
 
+import org.hibernate.validator.constraints.UniqueElements;
+
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -11,6 +13,7 @@ public class StudentDto {
         private Long id;
         @NotNull(message = "name can't be empty")
         @Size(min = 3, max = 15, message = "Name should be  between 3-15 characters")
+
         private String name;
 
         @NotNull(message = "email can't be empty")

@@ -2,6 +2,8 @@ package com.example.SpringProject.Entity;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table
@@ -11,20 +13,29 @@ public class School {
             strategy = GenerationType.SEQUENCE,
             generator = "school_sequence"
     )
+    @Column(name = "school_id")
     private Long id;
-    private Long student_id;
     private String name;
     private String country;
     private String address;
     private String email;
 
 
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },mappedBy = "attends")
+   private List<Student> student = new ArrayList<>();
+
+
+
     public School(){
 
     }
-    public School(Long student_id, String name, String country, String address, String email) {
+    public School(Long id,Long student_id, String name, String country, String address, String email) {
+        this.id =id;
 
-        this.student_id = student_id;
         this.name = name;
         this.country = country;
         this.address = address;
@@ -74,7 +85,6 @@ public class School {
     @Override
     public String toString() {
         return "Student{" +
-                "id=" + student_id +
                 ", name='" + name + '\'' +
                 ", country=" + country +
                 ", address=" + address+
@@ -82,12 +92,16 @@ public class School {
                 '}';
     }
 
-    public Long getStudent_id() {
-        return student_id;
+
+
+
+
+    public Long getId() {
+        return id;
     }
 
-    public void setStudent_id(Long student_id) {
-        this.student_id = student_id;
+    public void setId(Long id) {
+        this.id = id;
     }
 }
 

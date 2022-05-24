@@ -4,6 +4,8 @@ import javax.persistence.*;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table
@@ -13,7 +15,7 @@ public class Student {
             strategy = GenerationType.SEQUENCE,
             generator = "student_sequence"
     )
-
+    @Column(name = "student_id")
     private Long id;
     private String name;
     private String email;
@@ -21,20 +23,25 @@ public class Student {
 
 
 
-    @OneToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "id", referencedColumnName = "Student_id")
-    private School school;
-    public School getSchool(){
-        return school;
+    @ManyToMany(fetch = FetchType.EAGER,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
+    @JoinTable(
+            name = "student_school",
+            joinColumns = @JoinColumn(name = "student_id",nullable = false, updatable = false),
+            inverseJoinColumns = @JoinColumn(name = "school_id",nullable = false, updatable = false)
+    )
+    List<School> attends = new ArrayList<>();
+    public List<School> getSchools(){
+        return this.attends;
     }
+//    public void setAttends(List<School> attends){
+//        this.attends = attends;
+//    }
 
 
-    @OneToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "id", referencedColumnName = "Student_id")
-    private Home home;
-    public Home getHome(){
-        return home;
-    }
     public Student (){}
 
     public Student(Long id,

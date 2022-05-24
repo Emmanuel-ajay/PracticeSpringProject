@@ -1,13 +1,18 @@
 package com.example.SpringProject.Controller;
 
 import com.example.SpringProject.Dto.StudentDto;
+import com.example.SpringProject.Dto.Student_SchoolDto;
 import com.example.SpringProject.Entity.Student;
+import com.example.SpringProject.Entity.Student_School;
 import com.example.SpringProject.Service.StudentService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -19,9 +24,18 @@ public class StudentController {
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
     }
+
     @GetMapping
     public List<Student> getStudents(){
         return studentService.getStudents();
+    }
+
+    @PostMapping("/assignToSchool")
+    public String assignStudentToSchool(@RequestBody @Valid Student_SchoolDto student_schoolDto){
+        Student_School student_school= new Student_School();
+               student_school= modelMapper.map(student_schoolDto,Student_School.class);
+       String response =  studentService.assignStudentToSchool(student_school);
+        return response;
     }
     @PostMapping
     public Student addNewStudent (@RequestBody @Valid StudentDto studentDto){
