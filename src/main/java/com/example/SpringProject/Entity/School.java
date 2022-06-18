@@ -19,6 +19,11 @@ public class School {
     private String email;
 
 
+    @OneToOne
+    @JoinColumn(name="student_id", nullable=false,insertable = false,updatable = false)
+    private Student student;
+
+
     public School(){
 
     }

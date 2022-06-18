@@ -22,12 +22,21 @@ public class Student {
 
 
 
-    @OneToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "id", referencedColumnName = "Student_id")
+//    @OneToOne(cascade = CascadeType.REMOVE)
+//    @JoinColumn(name = "id", referencedColumnName = "Student_id")
+//    private School school;
+//    public School getSchool(){
+//        return school;
+//    }
+
+    @OneToOne(mappedBy = "student", fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL)
+
     private School school;
     public School getSchool(){
         return school;
     }
+
 
 
     @OneToMany(mappedBy = "student", fetch = FetchType.EAGER,
